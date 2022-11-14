@@ -4,12 +4,6 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-/**
- * ユーザーのログイン情報を表すドメイン
- * 
- * @author ishida fuya
- *
- */
 public class LoginUser extends User{
 	
 	private static final long serialVersionUID = 1L;

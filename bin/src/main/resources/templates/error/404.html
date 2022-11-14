@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>ページが見つかりませんでした</title>
+</head>
+<body>
+<pre>
+404 Not Found
+申し訳ございません。お探しのページは見つかりませんでした。
+
+以下のリンクからログインし直してください。
+
+</pre>
+<a th:href="@{/user}" class="navbar-link">ログイン画面</a>
+</body>
+</html>

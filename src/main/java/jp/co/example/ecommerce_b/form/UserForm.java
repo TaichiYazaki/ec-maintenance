@@ -39,7 +39,7 @@ public class UserForm {
 	  
 	  /** 電話番号 */
 	@NotBlank(message="電話番号を入力してください")
-	@Pattern(regexp="^[0-9]{4}-[0-9]{4}-[0-9]{4}$",message="電話番号はXXXX-XXXX-XXXXの形式で入力してください")
+	@Pattern(regexp="^[0-9]{3}-[0-9]{4}-[0-9]{4}$",message="電話番号はXXX-XXXX-XXXXの形式で入力してください")
 	  private String telephone;
 	
 	/**  確認用パスワード　*/

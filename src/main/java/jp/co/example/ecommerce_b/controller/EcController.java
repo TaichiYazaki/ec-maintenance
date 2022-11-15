@@ -1,7 +1,6 @@
 package jp.co.example.ecommerce_b.controller;
 
 import java.util.List;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,7 +20,6 @@ import jp.co.example.ecommerce_b.service.FavoriteService;
 import jp.co.example.ecommerce_b.service.Itemservice;
 
 @Controller
-@RequestMapping("")
 public class EcController {
 
 	@Autowired
@@ -29,9 +27,6 @@ public class EcController {
 
 	@Autowired
 	private FavoriteService favoriteService;
-
-	@Autowired
-	private HttpSession session;
 
 	@ModelAttribute
 	public ItemsearchForm setUpFormItemSearch() {
@@ -77,22 +72,24 @@ public class EcController {
 		return "item_detail";
 	}
 
-	/*
-	 * 商品全件の一覧
+	/**
+	 * 商品一覧を全件表示します
+	 * @param code
+	 * @param model
+	 * @return
 	 */
 
-	@RequestMapping("/itemList")
-	public String itemList(String code, Model model) {
-		// 全件表示
-		Integer AllItemCount = itemService.AllItemCount();
-		if (code == null) {
+	@RequestMapping("/showItems")//(itemList)
+	public String showItems(String itemName, Model model) {
+		Integer CountItems = itemService.AllItemCount();
+		if (itemName == null) {
 			List<Item> itemList = itemService.findAllItemList();
-			model.addAttribute("searchCount", AllItemCount);
+			model.addAttribute("CountItems", CountItems);
 			model.addAttribute("itemList", itemList);
 		} else {
-			List<Item> searchItem = itemService.search(code);
-			Integer searchCount1 = itemService.searchCount(code);
-			model.addAttribute("code", code);
+			List<Item> searchItem = itemService.search(itemName);
+			Integer searchCount1 = itemService.searchCount(itemName);
+			model.addAttribute("code", itemName);
 			String noList = "null";
 			// 検索結果がない場合
 			if (searchItem.isEmpty()) {

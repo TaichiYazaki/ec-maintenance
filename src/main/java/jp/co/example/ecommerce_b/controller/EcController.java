@@ -123,19 +123,28 @@ public class EcController {
 		return "show_items";
 	}
 
-	@RequestMapping("/itemAlign")
-	public String itemAlign(String listBox, Model model) {
-		Integer AllItemCount = itemService.countAllItems();
-		model.addAttribute("searchCount", AllItemCount);
-		if (listBox.equals("low")) {
-			List<Item> itemList = itemService.lowList();
-			model.addAttribute("itemList", itemList);
-		} else if (listBox.equals("high")) {
-			List<Item> itemList = itemService.highList();
-			model.addAttribute("itemList", itemList);
+	/**
+	 * 商品を並べ替えます
+	 * @param sortShowItems
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/sortItems")
+	public String itemAlign(String sortShowItems, Model model) {
+		Integer countAllItems = itemService.countAllItems();
+		model.addAttribute("countItems", countAllItems);
+		//商品の価格が安い順
+		if (sortShowItems.equals("low")) {
+			List<Item> listlowItems = itemService.lowList();
+			model.addAttribute("listAllItems", listlowItems);
+		//商品の価格が高い順
+		} else if (sortShowItems.equals("high")) {
+			List<Item> listHighItems = itemService.highList();
+			model.addAttribute("listAllItems", listHighItems);
+		//[---]を選択した時のデフォルト
 		} else {
-			List<Item> itemList = itemService.findAllItems();
-			model.addAttribute("itemList", itemList);
+			List<Item> listAllItems = itemService.findAllItems();
+			model.addAttribute("listAllItems", listAllItems);
 		}
 		return "show_items";
 	}

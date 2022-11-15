@@ -90,9 +90,9 @@
 		</div>
 
 		<!--並び順の表示-->
-		<form th:action="@{/itemAlign}" method="POST">
+		<form th:action="@{/sortItems}" method="POST">
 			<div id="select_menu">
-				<select id="listBox" name="listBox">
+				<select id="listBox" name="sortShowItems">
 					<option value="none">---</option>
 					<option value="low">価格が安い順</option>
 					<option value="high">価格が高い順</option>

@@ -27,10 +27,10 @@ public class Itemrepository {
 	 * 全件検索 全商品一覧の表示
 	 */
 
-	public List<Item> findAllItemList() {
+	public List<Item> findAllItems() {
 		String sql = "SELECT id,name,description,price_m,price_l,image_path FROM items ORDER BY price_m ASC ";
-		List<Item> itemList=template.query(sql, ITEM_ROW_MAPPER);
-		return itemList;
+		List<Item> findAllItems=template.query(sql, ITEM_ROW_MAPPER);
+		return findAllItems;
 	}
 	
 	/**
@@ -81,30 +81,30 @@ public class Itemrepository {
 	/**
 	 * 商品検索
 	 */
-	public List<Item> search(String name) {
+	public List<Item> searchItems(String name) {
 		String sql="SELECT id,name,description,price_m,price_l,image_path FROM items WHERE name LIKE :name  ORDER BY price_m ASC";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%"+name+"%");
-		List <Item> searchItem =template.query(sql, param, ITEM_ROW_MAPPER);
-		return searchItem;
+		List <Item> searchItems =template.query(sql, param, ITEM_ROW_MAPPER);
+		return searchItems;
 	}
 	
 	/**
 	 * 検索した商品の集約(ヒット数)
 	 */
-	public Integer searchCount(String name) {
+	public Integer countItems(String name) {
 		String sql="SELECT count(name) FROM items WHERE name LIKE :name";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%"+name+"%");
-	     Integer searchCount=template.queryForObject(sql, param, Integer.class);
-		return searchCount;
+	     Integer countItems=template.queryForObject(sql, param, Integer.class);
+		return countItems;
 	}
 	/**
 	 * 全商品の集約(ヒット数)
 	 */
-	public Integer AllItemCount() {
+	public Integer countAllItems() {
 		String sql="SELECT count(*) FROM items";
 		SqlParameterSource param = new MapSqlParameterSource();
-		Integer AllItemCount=template.queryForObject(sql, param, Integer.class);
-		 return AllItemCount;
+		Integer countAllItems=template.queryForObject(sql, param, Integer.class);
+		 return countAllItems;
 	}
 	}
 

@@ -20,8 +20,8 @@ public class Itemservice {
 	/**
 	 * 全件検索 全商品一覧の表示
 	 */
-	public List<Item> findAllItemList(){
-		return itemRepository.findAllItemList();
+	public List<Item> findAllItems(){
+		return itemRepository.findAllItems();
 	}
 	
 	/**
@@ -41,8 +41,8 @@ public class Itemservice {
 	/**
 	 * 商品検索
 	 */
-	public List<Item> search(String name) {
-		return itemRepository.search(name);
+	public List<Item> searchItems(String name) {
+		return itemRepository.searchItems(name);
 	}
 	
 	/**　送られてきたitemIdを条件としてItemテーブルを検索する
@@ -66,14 +66,14 @@ public class Itemservice {
 	 * 商品結果カウント
 	 * 
 	 */
-	public Integer searchCount(String name) {
-		return itemRepository.searchCount(name);
+	public Integer countItems(String name) {
+		return itemRepository.countItems(name);
 		}
 	/**
 	 * 全商品カウント
 	 * 
 	 */
-	public Integer AllItemCount() {
-		return itemRepository.AllItemCount();
+	public Integer countAllItems() {
+		return itemRepository.countAllItems();
 	}
 }

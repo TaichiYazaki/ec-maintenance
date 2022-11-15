@@ -68,7 +68,7 @@
 						<div class="panel-title">商品を検索する</div>
 					</div>
 					<div class="panel-body">
-						<form method="post" class="form-horizontal" th:action="@{/showItems}" name="search">
+						<form method="post" class="form-horizontal" th:action="@{/searchItems}" name="search">
 							<div class="form-group">
 								<label for="code" class="control-label col-sm-2">商品名</label>
 								<div class="col-sm-9">
@@ -115,14 +115,15 @@
 
 
 				<!--検索結果がないときのメッセージ-->
-				<span th:text="${noList}" style="font-weight:bold;color:orange;font-size:150%"></span><br>
-				検索結果：<span id="result" th:text="${code}"></span><br>
-				検索ヒット数：<span id="count" th:text="${countItems}"></span>件<br>
+				<span th:text="${noItemsText}" style="font-weight:bold;color:orange;font-size:150%"></span><br>
+				
+				検索結果：<span id="result" th:text="${itemName}"></span><br>
+				ヒット数：<span id="count" th:text="${countItems}"></span>件<br>
 
 				<!--検索結果の表示-->
 				<table class="table table-striped item-list-table">
 					<tbody>
-						<div th:each="search,status:${searchItem}">
+						<div th:each="search,status:${searchItems}">
 							<div th:if="${status.index % 3 ==0}">
 								<tr>
 							</div>
@@ -147,7 +148,7 @@
 				<!--全件表示-->
 				<table class="table table-striped item-list-table">
 					<tbody>
-						<div th:each="item,status:${listItems}">
+						<div th:each="item,status:${listAllItems}">
 							<div th:if="${status.index % 3 ==0}">
 								<tr>
 							</div>

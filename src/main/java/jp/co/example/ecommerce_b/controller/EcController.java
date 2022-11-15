@@ -74,35 +74,50 @@ public class EcController {
 
 	/**
 	 * 商品一覧を全件表示します
-	 * @param code
+	 * 
 	 * @param model
 	 * @return
 	 */
+	@RequestMapping("/showItems")
+	public String showItems(Model model) {
+		List<Item> listAllItems = itemService.findAllItems();
+		Integer countAllItems = itemService.countAllItems();
+		model.addAttribute("countAllItems", countAllItems);
+		model.addAttribute("listAllItems", listAllItems);
+		return "show_items";
+	}
 
-	@RequestMapping("/showItems")//(itemList)
-	public String showItems(String itemName, Model model) {
-		Integer countItems = itemService.AllItemCount();
-		if (itemName == null) {
-			List<Item> listItems = itemService.findAllItemList();
-			model.addAttribute("countItems", countItems);
-			model.addAttribute("listItems",listItems);
+	/**
+	 * 商品を検索します
+	 * 
+	 * @param itemName(商品名)
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/searchItems")
+	public String searchItems(String itemName, Model model) {
+		List<Item> listAllItems = itemService.findAllItems();
+		List<Item> searchItems = itemService.searchItems(itemName);
+		Integer countAllItems = itemService.countAllItems();
+		Integer countItems = itemService.countItems(itemName);
+		// 空文字、空欄で検索ボタンを押した時
+		if (itemName.isEmpty()) {
+			model.addAttribute("listAllItems", listAllItems);
+			model.addAttribute("itemName", "文字を入力してください");
+			model.addAttribute("countItems", countAllItems);
 		} else {
-			List<Item> searchItem = itemService.search(itemName);
-			Integer searchCount1 = itemService.searchCount(itemName);
-			model.addAttribute("code", itemName);
-			String noList = "null";
-			// 検索結果がない場合
-			if (searchItem.isEmpty()) {
-				noList = "該当する商品がありません";
-				model.addAttribute("noList", noList);
-				List<Item> itemList = itemService.findAllItemList();
-				String noItem = "0";
-				model.addAttribute("searchCount", noItem);
-				model.addAttribute("itemList", itemList);
-				// 検索結果がある場合
-			} else if (!(null == searchItem)) {
-				model.addAttribute("searchItem", searchItem);
-				model.addAttribute("searchCount", searchCount1);
+			if (searchItems.isEmpty()) {
+				// 検索結果が存在しない時
+				String noItemsText = "該当する商品がありません";
+				String noItemsCount = "0";
+				model.addAttribute("noItemsText", noItemsText);
+				model.addAttribute("itemName", itemName);
+				model.addAttribute("countItems", noItemsCount);
+			} else if (!(itemName == null)) {
+				// 検索結果が存在する時
+				model.addAttribute("searchItems", searchItems);
+				model.addAttribute("itemName", itemName);
+				model.addAttribute("countItems", countItems);
 			}
 		}
 		return "show_items";
@@ -110,16 +125,16 @@ public class EcController {
 
 	@RequestMapping("/itemAlign")
 	public String itemAlign(String listBox, Model model) {
-		Integer AllItemCount = itemService.AllItemCount();
+		Integer AllItemCount = itemService.countAllItems();
 		model.addAttribute("searchCount", AllItemCount);
 		if (listBox.equals("low")) {
-			List<Item> itemList = itemService.lowList();		
+			List<Item> itemList = itemService.lowList();
 			model.addAttribute("itemList", itemList);
 		} else if (listBox.equals("high")) {
 			List<Item> itemList = itemService.highList();
 			model.addAttribute("itemList", itemList);
 		} else {
-			List<Item> itemList = itemService.findAllItemList();
+			List<Item> itemList = itemService.findAllItems();
 			model.addAttribute("itemList", itemList);
 		}
 		return "show_items";

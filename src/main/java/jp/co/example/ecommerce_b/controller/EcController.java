@@ -81,11 +81,11 @@ public class EcController {
 
 	@RequestMapping("/showItems")//(itemList)
 	public String showItems(String itemName, Model model) {
-		Integer CountItems = itemService.AllItemCount();
+		Integer countItems = itemService.AllItemCount();
 		if (itemName == null) {
-			List<Item> itemList = itemService.findAllItemList();
-			model.addAttribute("CountItems", CountItems);
-			model.addAttribute("itemList", itemList);
+			List<Item> listItems = itemService.findAllItemList();
+			model.addAttribute("countItems", countItems);
+			model.addAttribute("listItems",listItems);
 		} else {
 			List<Item> searchItem = itemService.search(itemName);
 			Integer searchCount1 = itemService.searchCount(itemName);
@@ -105,7 +105,7 @@ public class EcController {
 				model.addAttribute("searchCount", searchCount1);
 			}
 		}
-		return "item_list_curry";
+		return "show_items";
 	}
 
 	@RequestMapping("/itemAlign")
@@ -122,7 +122,7 @@ public class EcController {
 			List<Item> itemList = itemService.findAllItemList();
 			model.addAttribute("itemList", itemList);
 		}
-		return "item_list_curry";
+		return "show_items";
 	}
 
 }

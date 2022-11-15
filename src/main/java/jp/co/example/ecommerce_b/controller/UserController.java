@@ -80,7 +80,7 @@ public class UserController {
 
 		userservice.resgisterUser(user);
 
-		return "/item_list_curry";
+		return "show_items";
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class UserController {
 		System.out.println("ログイン画面表示処理通過");
 		// ログイン済みの場合
 		if (session.getAttribute("userInfo") != null) {
-			return "/item_list_curry";
+			return "show_items";
 		}
 		// 未ログインの場合
 		return "/login";
@@ -119,7 +119,7 @@ public class UserController {
 	public String Login(String email, String password, Model model) {
 		// ログイン済みの場合
 		if (session.getAttribute("userInfo") != null) {
-			return "item_list_curry";
+			return "show_items";
 		}
 		// sessionにユーザー情報を格納(idだけで良い？)
 		session.setAttribute("userInfo", userservice.Login(email, password));

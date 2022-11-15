@@ -18,7 +18,6 @@ import jp.co.example.ecommerce_b.service.UserService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
 	/**
 	 * 初期表示を行う
 	 * 
@@ -27,7 +26,7 @@ public class UserController {
 	 */
 	@RequestMapping("/toRegisterUser")
 	public String toRegisterUser() {
-		return "/register_user";
+		return "register_user";
 	}
 
 	@ModelAttribute

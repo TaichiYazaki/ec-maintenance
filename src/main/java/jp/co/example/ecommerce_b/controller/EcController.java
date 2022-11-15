@@ -44,35 +44,6 @@ public class EcController {
 	}
 
 	/**
-	 * 送られてきたitemIDをもとにして商品を取得するメソッド トッピング全件取得のsqlも実行し、トッピングリストをitemオブジェクトに格納
-	 * 
-	 * @param itemId 商品一覧画面より遷移するときに送られてくる Id
-	 * @param model
-	 * @return 商品詳細画面へフォワード
-	 */
-	@RequestMapping("/toItemDetail")
-	public String toItemDetail(Integer itemId, Model model, @AuthenticationPrincipal LoginUser loginUser) {
-//		System.out.println("システム起動");
-		Item item = itemService.findByItemId(itemId);
-		// Item item = itemService.findByItemId(1);
-
-		List<Topping> toppingList = itemService.toppingFindAll();
-
-		item.setToppingList(toppingList);
-
-		if (loginUser != null) {
-			Integer userId = loginUser.Getusers().getId();
-			List<Favorite> favoriteList = favoriteService.confirmFavorite(userId, itemId);
-			model.addAttribute("favoriteList", favoriteList);
-		}
-		model.addAttribute("item", item);
-//		System.out.println(item);
-//		System.out.println(toppingList);
-//		
-		return "item_detail";
-	}
-
-	/**
 	 * 商品一覧を全件表示します
 	 * 
 	 * @param model
@@ -125,6 +96,7 @@ public class EcController {
 
 	/**
 	 * 商品を並べ替えます
+	 * 
 	 * @param sortShowItems
 	 * @param model
 	 * @return
@@ -133,15 +105,15 @@ public class EcController {
 	public String itemAlign(String sortShowItems, Model model) {
 		Integer countAllItems = itemService.countAllItems();
 		model.addAttribute("countItems", countAllItems);
-		//商品の価格が安い順
+		// 商品の価格が安い順
 		if (sortShowItems.equals("low")) {
 			List<Item> listlowItems = itemService.lowList();
 			model.addAttribute("listAllItems", listlowItems);
-		//商品の価格が高い順
+			// 商品の価格が高い順
 		} else if (sortShowItems.equals("high")) {
 			List<Item> listHighItems = itemService.highList();
 			model.addAttribute("listAllItems", listHighItems);
-		//[---]を選択した時のデフォルト
+			// [---]を選択した時のデフォルト
 		} else {
 			List<Item> listAllItems = itemService.findAllItems();
 			model.addAttribute("listAllItems", listAllItems);
@@ -149,4 +121,26 @@ public class EcController {
 		return "show_items";
 	}
 
+	/**
+	 * 商品の詳細を表示します
+	 * 送られてきたitemIDをもとにして商品を取得するメソッド トッピング全件取得のsqlも実行し、
+	 * トッピングリストをitemオブジェクトに格納
+	 * 
+	 * @param itemId 商品一覧画面より遷移するときに送られてくる Id
+	 * @param model
+	 * @return 商品詳細画面へフォワード
+	 */
+	@RequestMapping("/toItemDetail")
+	public String toItemDetail(Integer itemId, Model model, @AuthenticationPrincipal LoginUser loginUser) {
+		Item item = itemService.findByItemId(itemId);
+		List<Topping> toppingList = itemService.toppingFindAll();
+		item.setToppingList(toppingList);
+		if (loginUser != null) {
+			Integer userId = loginUser.Getusers().getId();
+			List<Favorite> favoriteList = favoriteService.confirmFavorite(userId, itemId);
+			model.addAttribute("favoriteList", favoriteList);
+		}
+		model.addAttribute("item", item);
+		return "detail_item";
+	}
 }

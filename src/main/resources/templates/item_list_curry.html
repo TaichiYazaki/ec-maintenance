@@ -72,7 +72,7 @@
 							<div class="form-group">
 								<label for="code" class="control-label col-sm-2">商品名</label>
 								<div class="col-sm-9">
-									<input id="autocomplete" type="text" name="code" class="form-control input-sm" />
+									<input id="autocomplete" type="text" name="itemName" class="form-control input-sm" />
 								</div>
 							</div>
 							<div class="text-center">
@@ -117,7 +117,7 @@
 				<!--検索結果がないときのメッセージ-->
 				<span th:text="${noList}" style="font-weight:bold;color:orange;font-size:150%"></span><br>
 				検索結果：<span id="result" th:text="${code}"></span><br>
-				検索ヒット数：<span id="count" th:text="${searchCount}"></span>件<br>
+				検索ヒット数：<span id="count" th:text="${countItems}"></span>件<br>
 
 				<!--検索結果の表示-->
 				<table class="table table-striped item-list-table">

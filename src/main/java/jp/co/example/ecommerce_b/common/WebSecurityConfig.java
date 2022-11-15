@@ -46,11 +46,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.loginProcessingUrl("/user/login") // ログインボタンを押した際に遷移させるパス(ここに遷移させれば自動的にログインが行われる)
         .usernameParameter("email") // 認証時に使用するユーザ名のリクエストパラメータ名(今回はメールアドレスを使用)
 	    .passwordParameter("password")// 認証時に使用するパスワードのリクエストパラメータ名
-	    .defaultSuccessUrl("/itemList");//ログイン成功時の遷移先
+	    .defaultSuccessUrl("/showItems");//ログイン成功時の遷移先
 	
 	http.logout() // ログアウトに関する設定
 	    .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // ログアウトさせる際に遷移させるパス
-		.logoutSuccessUrl("/itemList") // ログアウト後に遷移させるパス(ここではログイン画面を設定)
+		.logoutSuccessUrl("/showItems") // ログアウト後に遷移させるパス(ここではログイン画面を設定)
 		.deleteCookies("JSESSIONID") // ログアウト後、Cookieに保存されているセッションIDを削除
 		.invalidateHttpSession(true);
 	
